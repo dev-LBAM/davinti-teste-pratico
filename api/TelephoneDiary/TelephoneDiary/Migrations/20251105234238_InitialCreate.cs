@@ -1,5 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
-using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
@@ -15,8 +15,7 @@ namespace TelephoneDiary.Migrations
                 name: "Contatos",
                 columns: table => new
                 {
-                    ID = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    ID = table.Column<Guid>(type: "uuid", nullable: false),
                     Nome = table.Column<string>(type: "text", nullable: false),
                     Idade = table.Column<int>(type: "integer", nullable: false)
                 },
@@ -29,26 +28,25 @@ namespace TelephoneDiary.Migrations
                 name: "Telefones",
                 columns: table => new
                 {
-                    ID = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    IDContato = table.Column<int>(type: "integer", nullable: false),
-                    Numero = table.Column<string>(type: "text", nullable: false),
-                    ContatoID = table.Column<int>(type: "integer", nullable: true)
+                    ID = table.Column<Guid>(type: "uuid", nullable: false),
+                    IDContato = table.Column<Guid>(type: "uuid", nullable: false),
+                    Numero = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Telefones", x => x.ID);
                     table.ForeignKey(
-                        name: "FK_Telefones_Contatos_ContatoID",
-                        column: x => x.ContatoID,
+                        name: "FK_Telefones_Contatos_IDContato",
+                        column: x => x.IDContato,
                         principalTable: "Contatos",
-                        principalColumn: "ID");
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Telefones_ContatoID",
+                name: "IX_Telefones_IDContato",
                 table: "Telefones",
-                column: "ContatoID");
+                column: "IDContato");
         }
 
         /// <inheritdoc />

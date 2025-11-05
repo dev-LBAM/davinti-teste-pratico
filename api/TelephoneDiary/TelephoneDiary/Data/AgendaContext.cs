@@ -5,7 +5,16 @@ namespace TelephoneDiary.Data
 {
     public class AgendaContext(DbContextOptions<AgendaContext> options) : DbContext(options)
     {
-        public DbSet<Contato> Contatos { get; set; }
-        public DbSet<Telefone> Telefones { get; set; }
+        public DbSet<Contatos> Contatos { get; set; }
+        public DbSet<Telefones> Telefones { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Telefones>()
+                .HasOne<Contatos>()
+                .WithMany(c => c.Telefones)
+                .HasForeignKey(t => t.IDContato)
+                .OnDelete(DeleteBehavior.Cascade);
+        }
     }
 }

@@ -9,7 +9,8 @@
 **/obj/
 
 # Secrets
-api/.env
+api/TelephoneDiary/.env
+api/TelephoneDiary/log.txt
 frontend/.env
 
 # Node
