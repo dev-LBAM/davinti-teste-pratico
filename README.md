@@ -86,3 +86,6 @@ Aplicação iniciará em:
 ➡️ http://localhost:SUA_PORTA_DO_FRONTEND
 
 ---
+
+# 📌 OBSERVAÇÃO
+## Inicie o FRONTEND primeiro para conseguir a url necessária para a variavel de ambiente da API
