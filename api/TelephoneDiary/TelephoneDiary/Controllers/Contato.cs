@@ -164,7 +164,7 @@ namespace TelephoneDiary.Controllers
 
             System.IO.File.AppendAllText("log.txt", $"Contato {contato.Nome} excluído em {DateTime.Now}\n");
 
-            return NoContent();
+            return Ok(contato);
         }
     }
 }
